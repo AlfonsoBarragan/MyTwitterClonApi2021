@@ -1,0 +1,51 @@
+var express = require('express');
+var mongoose = require('mongoose');
+
+var router = express.Router();
+
+var Post = require('../models/Post.js');
+var db = mongoose.connection;
+
+/* GET users listing. */
+router.get('/', function(req, res, next) {
+    Post.find().sort('-publicationdate').exec(function(err, posts) {
+	if (err) res.status(500).send(err);
+	else res.status(200).json(posts);
+    });
+
+});
+
+router.get('/all/:email', function (req, res){
+    
+});
+
+
+router.get('/:id', function(req, res) {
+
+  if (req.params.id == '123'){
+    res.json({
+      "id": 123,
+      "name": "Jane Doe",
+      "phones": {
+        "home": "800-123-4567",
+        "mobile": "877-123-1234"
+      },
+      "email": [
+        "jd@example.com",
+        "jd@example.org"
+      ],
+      "dateOfBirth": "1980-01-02T00:00:00.000Z",
+      "registered": true
+    });
+  }else 
+      res.status(404).send('Sorry, item not found!');
+
+});
+
+router.get('/about', function(req, res, next) {
+    res.send('picatostes');
+});
+
+
+
+module.exports = router;
