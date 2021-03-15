@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 require('dotenv').config();
+mongoose.set('useCreateIndex', true);
 
 var indexRouter = require('./routes/index');
 var postsRouter = require('./routes/posts');
@@ -31,7 +32,7 @@ app.use(function(req, res, next) {
 
 
 
-mongoose.connect(process.env.DB_URI, {useNewUrlParser: true}, {useUnifiedTopology: true})
+mongoose.connect(process.env.DB_URI, {useNewUrlParser: true})
     .then(() => console.log("Conected with exito"))
     .catch((err) => console.error(err));
 
